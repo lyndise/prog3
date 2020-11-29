@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import proghf.model.TableCollection;
+import proghf.Main;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ public class MainController {
     @FXML
     protected void initialize() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/tableCollection.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("tableCollection.fxml"));
             Parent root = loader.load();
             TableCollectionController controller = loader.getController();
             tableCollectionTab.setContent(root);
@@ -31,7 +31,7 @@ public class MainController {
 
     public void addNewTab() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/table.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("table.fxml"));
             Parent root = loader.load();
             TableController controller = loader.getController();
             var tab = new Tab("Feladat");

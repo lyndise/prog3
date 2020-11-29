@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TableCollection {
     private ObservableList<Table> tables = FXCollections.observableList(new ArrayList<>());
