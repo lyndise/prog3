@@ -18,6 +18,6 @@ public class TableCollection {
     }
 
     public void AddEmptyTable() {
-        this.tables.add(new Table("Quuux"));
+        this.tables.add(new Table("Új tábla"));
     }
 }

@@ -1,5 +1,6 @@
 package proghf.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,15 +16,16 @@ public class MainController {
 
     @FXML
     private TabPane tabPane;
+    private TableCollectionController tableCollectionController;
 
     @FXML
     protected void initialize() {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("tableCollection.fxml"));
             Parent root = loader.load();
-            TableCollectionController controller = loader.getController();
+            tableCollectionController = loader.getController();
             tableCollectionTab.setContent(root);
-            controller.setMainController(this);
+            tableCollectionController.setMainController(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,5 +42,14 @@ public class MainController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    private void onNewTableMenuItem(){
+        tableCollectionController.onAddTableButtonPressed();
+    }
+
+    @FXML
+    private void onQuitMenuItem(){
+        Platform.exit();
     }
 }

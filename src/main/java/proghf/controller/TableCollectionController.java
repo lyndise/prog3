@@ -20,7 +20,7 @@ public class TableCollectionController {
 
     @FXML
     protected void initialize() {
-        var tableNameCol = new TableColumn<Table, String>("Table name");
+        var tableNameCol = new TableColumn<Table, String>("Tábla neve");
         tableNameCol.setMinWidth(100);
         tableNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableList.setItems(tableCollection.getTables());
@@ -32,7 +32,7 @@ public class TableCollectionController {
     }
 
     @FXML
-    private void onAddTableButtonPressed() {
+    public void onAddTableButtonPressed() {
         tableCollection.AddEmptyTable();
         mainController.addNewTab();
     }
