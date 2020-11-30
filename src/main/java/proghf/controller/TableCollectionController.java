@@ -1,39 +1,49 @@
 package proghf.controller;
 
+import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import proghf.model.Table;
 import proghf.model.TableCollection;
+import proghf.view.TableCollectionElementView;
+import proghf.view.TableCollectionView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TableCollectionController {
-    private MainController mainController;
-    private TableCollection tableCollection = new TableCollection();
+    private TableCollectionView tableCollectionView;
+    private List<TableCollectionElementView> tableCollectionElementViews = new ArrayList<>();
 
     @FXML
-    private Button addTableButton;
+    private VBox tableRows;
 
-    @FXML
-    private TableView<Table> tableList;
-
-    @FXML
-    protected void initialize() {
-        var tableNameCol = new TableColumn<Table, String>("Tábla neve");
-        tableNameCol.setMinWidth(100);
-        tableNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        tableList.setItems(tableCollection.getTables());
-        tableList.getColumns().add(tableNameCol);
+    public void bindView(TableCollectionView tableCollectionView) {
+        this.tableCollectionView = tableCollectionView;
+        tableCollectionView.getTableCollection().getTables().addListener((ListChangeListener<? super Table>) change -> {
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    for (var added : change.getAddedSubList()) {
+                        tableCollectionElementViews.add(new TableCollectionElementView(added));
+                    }
+                }
+                if (change.wasRemoved()) {
+                    for (var removed: change.getRemoved()) {
+                        tableCollectionElementViews.removeIf(el -> el.getTable().equals(removed));
+                    }
+                }
+            }
+            tableRows.getChildren().clear();
+            for (var el: tableCollectionElementViews) {
+                tableRows.getChildren().add(el.getView());
+            }
+        });
     }
 
-    public void setMainController(MainController mainController) {
-        this.mainController = mainController;
-    }
-
     @FXML
-    public void onAddTableButtonPressed() {
-        tableCollection.AddEmptyTable();
-        mainController.addNewTab();
+    public void onAddTableButtonPressed(ActionEvent actionEvent) {
+        tableCollectionView.getTableCollection().addEmptyTable();
     }
 }

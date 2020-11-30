@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 public class TableCollection {
     private ObservableList<Table> tables = FXCollections.observableList(new ArrayList<>());
-    private Table archive = new Table();
+    private Table archive = new Table("Archivált elemek", this);
+    private int nextId = 1;
 
     public ObservableList<Table> getTables() {
         return tables;
@@ -17,7 +18,11 @@ public class TableCollection {
         return archive;
     }
 
-    public void AddEmptyTable() {
-        this.tables.add(new Table("Új tábla"));
+    public void addEmptyTable() {
+        this.tables.add(new Table(String.format("Tábla %d", nextId++), this));
+    }
+
+    public void deleteTable(Table table) {
+        tables.removeAll(table);
     }
 }

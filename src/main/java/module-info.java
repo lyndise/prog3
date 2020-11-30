@@ -5,8 +5,10 @@ module proghf {
     opens proghf to javafx.fxml;
     opens proghf.model to javafx.fxml;
     opens proghf.controller to javafx.fxml;
+    opens proghf.view to javafx.fxml;
 
     exports proghf;
     exports proghf.controller;
     exports proghf.model;
+    exports proghf.view;
 }

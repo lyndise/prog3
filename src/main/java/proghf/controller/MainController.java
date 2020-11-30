@@ -1,55 +1,43 @@
 package proghf.controller;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import proghf.Main;
-
-import java.io.IOException;
+import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
+import proghf.TableManager;
+import proghf.view.TableCollectionView;
 
 public class MainController {
     @FXML
-    private Tab tableCollectionTab;
+    private AnchorPane mainContent;
 
-    @FXML
-    private TabPane tabPane;
-    private TableCollectionController tableCollectionController;
+    private TableCollectionView tableCollectionView;
 
     @FXML
     protected void initialize() {
-        try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("tableCollection.fxml"));
-            Parent root = loader.load();
-            tableCollectionController = loader.getController();
-            tableCollectionTab.setContent(root);
-            tableCollectionController.setMainController(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        TableManager.getInstance().registerMainController(this);
+        tableCollectionView = new TableCollectionView();
+        tableCollectionView.activate();
     }
 
-    public void addNewTab() {
-        try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("table.fxml"));
-            Parent root = loader.load();
-            TableController controller = loader.getController();
-            var tab = new Tab("Feladat");
-            tab.setContent(root);
-            tabPane.getTabs().add(tab);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @FXML
-    private void onNewTableMenuItem(){
-        tableCollectionController.onAddTableButtonPressed();
+    public void setContent(Node n) {
+        var children = mainContent.getChildren();
+        children.clear();
+        children.add(n);
+        AnchorPane.setTopAnchor(n, 0.0);
+        AnchorPane.setBottomAnchor(n, 0.0);
+        AnchorPane.setLeftAnchor(n, 0.0);
+        AnchorPane.setRightAnchor(n, 0.0);
     }
 
     @FXML
-    private void onQuitMenuItem(){
+    public void onNewTableMenuItem(ActionEvent actionEvent){
+        tableCollectionView.createTable();
+    }
+
+    @FXML
+    public void onQuitMenuItem(ActionEvent actionEvent){
         Platform.exit();
     }
 }
