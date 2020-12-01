@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.Background;
@@ -15,6 +17,7 @@ import proghf.model.Reminder;
 import proghf.model.Task;
 import proghf.model.TaskList;
 import proghf.view.TableColumnView;
+import proghf.view.TaskView;
 
 public class TableColumnController {
     private TableColumnView tableColumnView;
@@ -45,7 +48,9 @@ public class TableColumnController {
     private void renderTasks() {
         taskItems.getChildren().clear();
         tableColumnView.getTable().getTasks().forEach(task ->{
-            taskItems.getChildren().add(createTaskView(task));
+            if(task.getLabels().contains(tableColumnView.getLabel())){
+                taskItems.getChildren().add(createTaskView(task));
+            }
         });
     }
 
@@ -57,6 +62,12 @@ public class TableColumnController {
         for (var label: task.getLabels()) {
             vbox.getChildren().add(new Label(label.getName()));
         }
+        var button=new Button("Szerkesztés");
+        button.onActionProperty().setValue(actionEvent -> {
+            var taskView=new TaskView(task);
+            taskView.activate();
+        });
+        vbox.getChildren().add(button);
         var separator = new Separator();
         separator.setPadding(new Insets(4, 0, 0, 4));
         vbox.getChildren().add(separator);
@@ -66,6 +77,7 @@ public class TableColumnController {
     @FXML
     public void onNewTaskPressed(ActionEvent actionEvent) {
         var task = new Reminder("Emlékeztető");
+        task.getLabels().add(tableColumnView.getLabel());
         tableColumnView.getTable().getTasks().add(task);
     }
 

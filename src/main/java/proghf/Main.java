@@ -19,6 +19,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("main"), 640, 480);
         stage.setScene(scene);
+        stage.setTitle("Feladatlista");
         stage.show();
     }
 

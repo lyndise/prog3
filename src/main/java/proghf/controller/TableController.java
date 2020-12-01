@@ -3,19 +3,25 @@ package proghf.controller;
 import javafx.collections.SetChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import proghf.TableManager;
-import proghf.model.Table;
 import proghf.view.TableColumnView;
 import proghf.view.TableView;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class TableController {
+    @FXML
+    public TextField tableNameTextField;
+    @FXML
+    public Button saveButton;
+    @FXML
+    public Button editButton;
+    @FXML
+    private TextField newColumnName;
     private TableView tableView;
     private List<TableColumnView> tableColumnViews = new ArrayList<>();
     @FXML
@@ -25,8 +31,10 @@ public class TableController {
 
     @FXML
     public void onNewColumnPressed(ActionEvent actionEvent) {
-        var label = new proghf.model.Label(Integer.toString(new Random().nextInt()));
-        tableView.getTable().getColumns().add(label);
+        if (newColumnName.getText().length() > 0) {
+            var label = new proghf.model.Label(newColumnName.getText());
+            tableView.getTable().getColumns().add(label);
+        }
     }
 
     @FXML
@@ -36,7 +44,7 @@ public class TableController {
 
     public void renderColumns() {
         columns.getChildren().clear();
-        for (var view: tableColumnViews) {
+        for (var view : tableColumnViews) {
             columns.getChildren().add(view.getView());
         }
     }
@@ -47,7 +55,7 @@ public class TableController {
         tableView.getTable().getNameProperty().addListener((prop, oldName, newName) -> {
             tableName.setText(newName);
         });
-        for (var label: tableView.getTable().getColumns()) {
+        for (var label : tableView.getTable().getColumns()) {
             tableColumnViews.add(new TableColumnView(tableView.getTable(), label));
         }
         renderColumns();
@@ -66,4 +74,29 @@ public class TableController {
         });
     }
 
+    public void onEditPressed(ActionEvent actionEvent) {
+        tableNameTextField.setText(tableName.getText());
+        tableName.setVisible(false);
+        tableName.setPrefWidth(0.0);
+        editButton.setVisible(false);
+        editButton.setPrefWidth(0.0);
+        tableNameTextField.setVisible(true);
+        tableNameTextField.setPrefWidth(-1);
+        saveButton.setVisible(true);
+        saveButton.setPrefWidth(-1);
+    }
+
+    public void onSavePressed(ActionEvent actionEvent) {
+        if (tableNameTextField.getText().length() > 0) {
+            tableView.getTable().setName(tableNameTextField.getText());
+        }
+        tableName.setVisible(true);
+        tableName.setPrefWidth(-1);
+        editButton.setVisible(true);
+        editButton.setPrefWidth(-1);
+        tableNameTextField.setVisible(false);
+        tableNameTextField.setPrefWidth(0.0);
+        saveButton.setVisible(false);
+        saveButton.setPrefWidth(0.0);
+    }
 }

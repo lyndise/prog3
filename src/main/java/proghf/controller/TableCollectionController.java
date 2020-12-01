@@ -46,4 +46,7 @@ public class TableCollectionController {
     public void onAddTableButtonPressed(ActionEvent actionEvent) {
         tableCollectionView.getTableCollection().addEmptyTable();
     }
+
+    public void onArchivedTasksPressed(ActionEvent actionEvent) {
+    }
 }
