@@ -34,6 +34,11 @@
                      </HBox.margin>
                   </Button>
                   <Button fx:id="saveButton" minWidth="0.0" mnemonicParsing="false" onAction="#onSavePressed" prefWidth="0.0" text="Mentés" visible="false" />
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDeletePressed" text="Törlés">
+                     <HBox.margin>
+                        <Insets left="4.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
             <ScrollPane hbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">

@@ -5,10 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import proghf.model.Label;
 import proghf.model.Table;
 import proghf.model.TableCollection;
 import proghf.view.TableCollectionElementView;
 import proghf.view.TableCollectionView;
+import proghf.view.TableColumnView;
 
 import java.util.ArrayList;
 import java.util.List;

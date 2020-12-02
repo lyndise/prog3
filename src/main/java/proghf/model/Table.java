@@ -48,4 +48,8 @@ public class Table {
     public void removeColumn(Label column) {
         this.columns.remove(column);
     }
+
+    public void deleteTask(Task task){
+        tasks.remove(task);
+    }
 }

@@ -13,6 +13,7 @@ public class TableColumnView {
     private Table table;
     private Label label;
     private Node view;
+    private TableColumnController controller;
 
     public TableColumnView(Table table, Label label) {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("tableColumn.fxml"));
@@ -20,7 +21,7 @@ public class TableColumnView {
         this.label = label;
         try {
             view = loader.load();
-            TableColumnController controller = loader.getController();
+            controller = loader.getController();
             controller.bindView(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -40,6 +41,12 @@ public class TableColumnView {
     }
 
     public void delete() {
-        table.removeColumn(label);
+        if (label != null) {
+            table.removeColumn(label);
+        }
+    }
+
+    public void refresh() {
+        controller.renderTasks();
     }
 }

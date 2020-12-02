@@ -54,7 +54,7 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <Button defaultButton="true" mnemonicParsing="false" text="Mentés" />
-                  <Button mnemonicParsing="false" text="Törlés" />
+                  <Button mnemonicParsing="false" onAction="#onDeletePressed" text="Törlés" />
                   <Button mnemonicParsing="false" text="Archiválás" />
                </children>
                <GridPane.margin>
