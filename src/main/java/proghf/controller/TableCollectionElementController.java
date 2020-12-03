@@ -19,7 +19,7 @@ public class TableCollectionElementController {
         this.tableCollectionElementView = tableCollectionElementView;
         var table = tableCollectionElementView.getTable();
         tableNameLabel.setText(table.getName());
-        table.getNameProperty().addListener((property, oldName, newName) -> {
+        table.nameProperty().addListener((property, oldName, newName) -> {
             tableNameLabel.setText(newName);
         });
     }

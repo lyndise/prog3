@@ -31,6 +31,11 @@ public class TableCollectionController {
 
     public void bindView(TableCollectionView tableCollectionView) {
         this.tableCollectionView = tableCollectionView;
+        tableCollectionView.getTableCollection().getTables().forEach(table -> {
+            var tableRow = new TableCollectionElementView(table);
+            tableCollectionElementViews.add(tableRow);
+            tableRows.getChildren().add(tableRow.getView());
+        });
         tableCollectionView.getTableCollection().getTables().addListener((ListChangeListener<? super Table>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {

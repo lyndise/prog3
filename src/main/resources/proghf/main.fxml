@@ -17,11 +17,11 @@
                               <KeyCodeCombination alt="UP" code="N" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator></MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                                <MenuItem mnemonicParsing="false" text="Mentés">
+                                <MenuItem mnemonicParsing="false" onAction="#onSavePressed" text="Mentés">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="S" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator></MenuItem>
-                        <MenuItem mnemonicParsing="false" text="Betöltés">
+                        <MenuItem mnemonicParsing="false" onAction="#onLoadPressed" text="Betöltés">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="O" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>

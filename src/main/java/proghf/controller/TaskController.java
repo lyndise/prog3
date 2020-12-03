@@ -1,6 +1,5 @@
 package proghf.controller;
 
-import javafx.collections.ListChangeListener;
 import javafx.collections.SetChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,7 +47,7 @@ public class TaskController {
             archiveButton.setMinWidth(0.0);
         }
         taskName.setText(taskView.getTask().getName());
-        taskView.getTask().getNameProperty().addListener((property, oldName, newName) -> {
+        taskView.getTask().nameProperty().addListener((property, oldName, newName) -> {
             taskName.setText(newName);
         });
         if (taskView.getTask() instanceof Reminder) {

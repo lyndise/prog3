@@ -1,6 +1,5 @@
 package proghf.controller;
 
-import javafx.collections.ListChangeListener;
 import javafx.collections.SetChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -58,7 +57,7 @@ public class TableController {
     public void bindView(TableView tableView) {
         this.tableView = tableView;
         tableName.setText(tableView.getTable().getName());
-        tableView.getTable().getNameProperty().addListener((prop, oldName, newName) -> {
+        tableView.getTable().nameProperty().addListener((prop, oldName, newName) -> {
             tableName.setText(newName);
         });
         tableColumnViews.add(new TableColumnView(tableView.getTable(), null));

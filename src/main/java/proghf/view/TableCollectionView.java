@@ -11,8 +11,19 @@ public class TableCollectionView extends Navigable {
     private TableCollection tableCollection;
 
     public TableCollectionView() {
-        this.tableCollection = new TableCollection();
+        setTableCollection(new TableCollection());
+    }
 
+    public TableCollectionView(TableCollection tableCollection) {
+        setTableCollection(tableCollection);
+    }
+
+    public TableCollection getTableCollection() {
+        return tableCollection;
+    }
+
+    public void setTableCollection(TableCollection tableCollection) {
+        this.tableCollection = tableCollection;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("tableCollection.fxml"));
         try {
             view = loader.load();
@@ -21,10 +32,6 @@ public class TableCollectionView extends Navigable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public TableCollection getTableCollection() {
-        return tableCollection;
     }
 
     public void createTable(String name) {

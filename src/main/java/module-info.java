@@ -1,9 +1,9 @@
 module proghf {
     requires javafx.controls;
     requires javafx.fxml;
+    requires com.fasterxml.jackson.databind;
 
-    opens proghf to javafx.fxml;
-    opens proghf.model to javafx.fxml;
+    opens proghf.model to javafx.fxml, com.fasterxml.jackson.databind;
     opens proghf.controller to javafx.fxml;
     opens proghf.view to javafx.fxml;
 

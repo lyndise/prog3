@@ -1,5 +1,6 @@
 package proghf.model;
 
+import com.fasterxml.jackson.annotation.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.paint.Color;
 
@@ -8,12 +9,18 @@ import java.util.Objects;
 public class Label {
     private SimpleStringProperty name;
 
-    public Label(String name) {
+    public Label(@JsonProperty String name) {
         this.name = new SimpleStringProperty(name);
     }
 
+    @JsonValue
     public String getName() {
         return name.get();
+    }
+
+    @JsonSetter
+    public void setName(String name) {
+        this.name.set(name);
     }
 
     public SimpleStringProperty getNameProperty() {

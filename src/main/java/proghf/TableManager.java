@@ -32,6 +32,8 @@ public class TableManager {
 
     public void navigateBack() {
         viewHistory.pop();
-        setCurrentView(viewHistory.pop());
+        if (!viewHistory.empty()) {
+            setCurrentView(viewHistory.pop());
+        }
     }
 }
