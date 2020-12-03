@@ -2,7 +2,6 @@ package proghf.view;
 
 import javafx.fxml.FXMLLoader;
 import proghf.Main;
-import proghf.controller.TableController;
 import proghf.controller.TaskController;
 import proghf.model.Task;
 

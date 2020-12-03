@@ -8,9 +8,8 @@ import proghf.model.Table;
 
 import java.io.IOException;
 
-public class TableCollectionElementView {
+public class TableCollectionElementView extends View{
     private Table table;
-    private Node view;
 
     public TableCollectionElementView(Table table) {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("tableCollectionElement.fxml"));
@@ -26,9 +25,5 @@ public class TableCollectionElementView {
 
     public Table getTable() {
         return table;
-    }
-
-    public Node getView() {
-        return view;
     }
 }

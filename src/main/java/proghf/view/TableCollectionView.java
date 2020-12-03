@@ -27,7 +27,7 @@ public class TableCollectionView extends Navigable {
         return tableCollection;
     }
 
-    public void createTable() {
-        tableCollection.addEmptyTable();
+    public void createTable(String name) {
+        tableCollection.newTable(name);
     }
 }

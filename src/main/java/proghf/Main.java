@@ -20,6 +20,8 @@ public class Main extends Application {
         scene = new Scene(loadFXML("main"), 640, 480);
         stage.setScene(scene);
         stage.setTitle("Feladatlista");
+        stage.setMinHeight(400.0);
+        stage.setMinWidth(600.0);
         stage.show();
     }
 

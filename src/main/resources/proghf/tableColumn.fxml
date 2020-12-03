@@ -19,12 +19,12 @@
                            </font>
                         </Label>
                         <Pane HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" onAction="#onNewTaskPressed" text="Új">
+                        <Button fx:id="newButton" mnemonicParsing="false" onAction="#onNewTaskPressed" text="Új">
                            <HBox.margin>
                               <Insets right="4.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="deleteButton" minWidth="0.0" mnemonicParsing="false" onAction="#onDeletePressed" text="X" />
+                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDeletePressed" text="X" />
                      </children>
                      <VBox.margin>
                         <Insets />

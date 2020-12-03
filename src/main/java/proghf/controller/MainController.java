@@ -4,6 +4,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import proghf.TableManager;
 import proghf.view.TableCollectionView;
@@ -33,7 +35,14 @@ public class MainController {
 
     @FXML
     public void onNewTableMenuItem(ActionEvent actionEvent){
-        tableCollectionView.createTable();
+        var tableNameDialog = new TextInputDialog("Tábla");
+        tableNameDialog.setTitle("Új tábla létrehozása");
+        tableNameDialog.setHeaderText("Kérem adja meg az új tábla nevét");
+        tableNameDialog.setContentText(null);
+        var result = tableNameDialog.showAndWait();
+        if (result.isPresent() && result.get().length() > 0) {
+            tableCollectionView.createTable(result.get());
+        }
     }
 
     @FXML

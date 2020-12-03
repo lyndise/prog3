@@ -24,6 +24,9 @@ public abstract class Task {
         return name.get();
     }
 
+    public void setName(String name) {
+        this.name.set(name);
+    }
     public SimpleStringProperty getNameProperty() {
         return name;
     }
@@ -32,8 +35,8 @@ public abstract class Task {
         return parent;
     }
 
-    public void setParent(Table table){
-        parent=table;
+    public void setParent(Table table) {
+        parent = table;
     }
 
     public boolean hasAnyLabel(Set<Label> compare) {

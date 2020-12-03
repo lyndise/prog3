@@ -9,10 +9,9 @@ import proghf.model.Table;
 
 import java.io.IOException;
 
-public class TableColumnView {
+public class TableColumnView extends View{
     private Table table;
     private Label label;
-    private Node view;
     private TableColumnController controller;
 
     public TableColumnView(Table table, Label label) {
@@ -34,10 +33,6 @@ public class TableColumnView {
 
     public Label getLabel() {
         return label;
-    }
-
-    public Node getView() {
-        return view;
     }
 
     public void delete() {

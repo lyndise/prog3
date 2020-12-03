@@ -49,7 +49,15 @@ public class Table {
         this.columns.remove(column);
     }
 
-    public void deleteTask(Task task){
+    public void deleteTask(Task task) {
         tasks.remove(task);
+    }
+
+    public void archiveTask(Task task) {
+        if(tasks.contains(task)){
+            deleteTask(task);
+            getParent().getArchive().getTasks().add(task);
+            task.setParent(getParent().getArchive());
+        }
     }
 }

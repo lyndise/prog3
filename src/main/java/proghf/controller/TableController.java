@@ -1,12 +1,12 @@
 package proghf.controller;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.SetChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import proghf.TableManager;
-import proghf.view.TableCollectionElementView;
 import proghf.view.TableColumnView;
 import proghf.view.TableView;
 
@@ -37,6 +37,7 @@ public class TableController {
             var label = new proghf.model.Label(newColumnName.getText());
             tableView.getTable().getColumns().add(label);
         }
+        newColumnName.clear();
     }
 
     @FXML
@@ -64,7 +65,6 @@ public class TableController {
         for (var label : tableView.getTable().getColumns()) {
             tableColumnViews.add(new TableColumnView(tableView.getTable(), label));
         }
-
         renderColumns();
         tableView.getTable().getColumns().addListener((SetChangeListener<? super proghf.model.Label>) change -> {
             if (change.wasAdded()) {
@@ -79,6 +79,12 @@ public class TableController {
             }
             renderColumns();
         });
+        if(tableView.getTable()==tableView.getTable().getParent().getArchive()){
+            editButton.setVisible(false);
+            editButton.setPrefWidth(0.0);
+            deleteButton.setVisible(false);
+            deleteButton.setPrefWidth(0.0);
+        }
     }
 
     public void onEditPressed(ActionEvent actionEvent) {
@@ -117,10 +123,10 @@ public class TableController {
         alert.setHeaderText("Biztosan törli a táblát?");
         alert.setContentText("A tábla törlésével elvesznek az adatok.");
         var result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        if (result.isPresent()&&result.get() == ButtonType.OK) {
             var table = tableView.getTable();
             table.getParent().deleteTable(table);
+            TableManager.getInstance().navigateBack();
         }
-        TableManager.getInstance().navigateBack();
     }
 }

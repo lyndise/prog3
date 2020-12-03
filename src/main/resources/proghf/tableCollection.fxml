@@ -21,8 +21,10 @@
                   <Button alignment="CENTER" minWidth="100.0" mnemonicParsing="false" onAction="#onAddTableButtonPressed" text="Új tábla létrehozása" textAlignment="CENTER" />
                   <Button mnemonicParsing="false" onAction="#onArchivedTasksPressed" text="Archivált elemek" />
                   <Pane HBox.hgrow="ALWAYS" />
-                  <TextField />
-                  <Button alignment="CENTER" mnemonicParsing="false" text="Keresés" />
+                  <ProgressIndicator fx:id="searchSpinner" minWidth="0.0" prefHeight="20.0" prefWidth="0.0" />
+                  <TextField fx:id="searchField" onAction="#onSearchPressed" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#onSearchPressed" text="Keresés" />
+                  <CheckBox fx:id="isArchiveChecked" mnemonicParsing="false" text="Archívban is" />
                </items>
             </ToolBar>
          </children>

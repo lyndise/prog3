@@ -10,9 +10,13 @@ import java.io.IOException;
 public class TableView extends Navigable {
     private Table table;
 
+
     public TableView(Table table) {
         this.table = table;
+        loadView();
+    }
 
+    private void loadView() {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("table.fxml"));
         try {
             view = loader.load();

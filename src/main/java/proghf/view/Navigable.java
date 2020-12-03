@@ -4,8 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import proghf.TableManager;
 
-public abstract class Navigable {
-    protected Node view;
+public abstract class Navigable extends View{
 
     public void activate() {
         TableManager.getInstance().setCurrentView(view);
@@ -16,7 +15,5 @@ public abstract class Navigable {
         TableManager.getInstance().navigateBack();
     };
 
-    public Node getView() {
-        return view;
-    }
+
 }

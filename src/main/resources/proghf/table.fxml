@@ -13,21 +13,24 @@
               <items>
                 <Button mnemonicParsing="false" onAction="#onBackPressed" text="Vissza" />
                   <Pane HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="newColumnName" />
-                  <Button mnemonicParsing="false" onAction="#onNewColumnPressed" text="Új oszlop" />
+                  <TextField fx:id="newColumnName" onAction="#onNewColumnPressed" />
+                  <Button mnemonicParsing="false" onAction="#onNewColumnPressed" text="Új kategória" />
               </items>
             </ToolBar>
             <HBox alignment="CENTER">
                <children>
-                  <Label fx:id="tableName" minWidth="0.0" text="Tábla neve">
+                  <Label fx:id="tableName" text="Tábla neve">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="24.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                      <padding>
-                        <Insets bottom="8.0" left="8.0" top="8.0" />
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="tableNameTextField" minWidth="0.0" prefWidth="0.0" visible="false" />
+                  <TextField fx:id="tableNameTextField" minWidth="0.0" onAction="#onSavePressed" prefWidth="0.0" visible="false" />
                   <Button fx:id="editButton" minWidth="0.0" mnemonicParsing="false" onAction="#onEditPressed" text="Szerkesztés">
                      <HBox.margin>
                         <Insets left="8.0" />
