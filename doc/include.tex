@@ -1,0 +1,29 @@
+\usepackage{hyperref}
+\usepackage{sectsty}
+\sectionfont{\clearpage}
+
+\usepackage{enumitem}
+\usepackage{amsfonts}
+
+% level one
+\setlist[itemize,1]{label=$\bullet$}
+% level two
+\setlist[itemize,2]{label=$\circ$}
+% level three
+\setlist[itemize,3]{label=$\star$}
+
+\usepackage{float}
+\floatplacement{figure}{H}
+
+\usepackage[section]{placeins}
+
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+
+\usepackage{fancyhdr}
+\usepackage{titling}
+\pagestyle{fancy}
+\fancyhead[L]{\rightmark}
+\fancyfoot[C]{}
+\fancyfoot[LO,RE]{\theauthor}
+\fancyfoot[RO,LE]{\thepage}
