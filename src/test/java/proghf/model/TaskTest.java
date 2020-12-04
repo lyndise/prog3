@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import static org.junit.Assert.*;
 
 public class TaskTest {
-    private class DummyTask extends Task {
+    private static class DummyTask extends Task {
         public DummyTask() {
             super("");
         }

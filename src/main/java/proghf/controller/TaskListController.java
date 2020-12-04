@@ -57,12 +57,9 @@ public class TaskListController {
             var taskItemField = new TextField(taskItem.getText());
             var checkBox = new CheckBox();
             checkBox.selectedProperty().bindBidirectional(taskItem.checkedProperty());
+            taskItemField.setDisable(taskItem.isChecked());
             checkBox.selectedProperty().addListener((prop, oldValue, newValue) -> {
-                if (newValue) {
-                    taskItemField.setStyle("-fx-text-fill: gray;");
-                } else {
-                    taskItemField.setStyle("-fx-text-fill: black;");
-                }
+                taskItemField.setDisable(newValue);
             });
             taskItemField.textProperty().bindBidirectional(taskItem.textProperty());
             var deleteButton = new Button("Törlés");

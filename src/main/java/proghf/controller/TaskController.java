@@ -5,10 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import proghf.ViewManager;
 import proghf.model.Reminder;
 import proghf.model.TaskList;
@@ -124,14 +121,15 @@ public class TaskController {
         labelList.getChildren().clear();
         for (var label : taskView.getTask().getLabels().stream().sorted(Comparator.comparing(proghf.model.Label::getName)).collect(Collectors.toList())) {
             var hbox = new HBox();
-            var labelField = new TextField(label.getName());
-            labelField.textProperty().bindBidirectional(label.nameProperty());
+            var labelField = new Label(label.getName());
+            var pane = new Pane();
+            HBox.setHgrow(pane, Priority.ALWAYS);
             var deleteButton = new Button("Törlés");
             deleteButton.setOnAction(actionEvent -> {
                 taskView.getTask().getLabels().remove(label);
             });
             deleteButton.setMinWidth(60.0);
-            hbox.getChildren().addAll(labelField, deleteButton);
+            hbox.getChildren().addAll(labelField, pane, deleteButton);
             hbox.setSpacing(8.0);
             HBox.setHgrow(labelField, Priority.SOMETIMES);
             labelList.getChildren().add(hbox);

@@ -4,8 +4,14 @@ import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import proghf.model.Reminder;
@@ -113,9 +119,27 @@ public class TableColumnController {
      */
     private Node createTaskView(Task task) {
         var vbox = new VBox();
+        vbox.setPadding(new Insets(4, 0, 4, 0));
         var taskName = new Label(task.getName());
-        taskName.setFont(Font.font("System", 16.0));
-        vbox.getChildren().add(taskName);
+        taskName.setFont(Font.font(16.0));
+        taskName.setPadding(new Insets(0, 0, 8, 0));
+        var headerBox = new HBox();
+        headerBox.getChildren().add(taskName);
+        if (task instanceof Reminder) {
+            var image = new Image("reminder.png", 24.0, 24.0, true, true);
+            var imageView = new ImageView(image);
+            var pane = new Pane();
+            HBox.setHgrow(pane, Priority.ALWAYS);
+            headerBox.getChildren().addAll(pane, imageView);
+        } else if (task instanceof TaskList) {
+            var image = new Image("task.png", 24.0, 24.0, true, true);
+            var imageView = new ImageView(image);
+            var pane = new Pane();
+            HBox.setHgrow(pane, Priority.ALWAYS);
+            headerBox.getChildren().addAll(pane, imageView);
+        }
+        vbox.getChildren().add(headerBox);
+
         for (var label : task.getLabels()) {
             var columnLabel = tableColumnView.getLabel();
             if (columnLabel == null || !columnLabel.equals(label)) {
@@ -127,9 +151,12 @@ public class TableColumnController {
             var taskView = new TaskView(task);
             taskView.activate();
         });
-        vbox.getChildren().add(button);
+        var hbox = new HBox();
+        hbox.setAlignment(Pos.CENTER_RIGHT);
+        hbox.getChildren().add(button);
+        vbox.getChildren().add(hbox);
         var separator = new Separator();
-        separator.setPadding(new Insets(4, 0, 0, 4));
+        separator.setPadding(new Insets(8, 0, 0, 0));
         vbox.getChildren().add(separator);
         return vbox;
     }

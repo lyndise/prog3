@@ -1,12 +1,10 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
         {
             "label": "build tex",
             "type": "shell",
-            "command": "pandoc -H include.tex --listings -s -o B9ZLEE_proghf.tex B9ZLEE_proghf.md",
+            "command": "pandoc -H include.tex -s -o B9ZLEE_proghf.tex B9ZLEE_proghf.md",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
@@ -19,7 +17,7 @@
         {
             "label": "build pdf",
             "type": "shell",
-            "command": "pandoc -H include.tex --listings --pdf-engine=xelatex -s -o B9ZLEE_proghf.pdf B9ZLEE_proghf.md",
+            "command": "pandoc -H include.tex --pdf-engine=xelatex -s -o B9ZLEE_proghf.pdf B9ZLEE_proghf.md",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
@@ -28,6 +26,6 @@
                 "showReuseMessage": true,
                 "clear": false
             }
-        },
+        }
     ]
 }

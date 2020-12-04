@@ -6,7 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,13 +24,13 @@ public abstract class Task {
      * A feladathoz tartozó címkék halmaza
      */
     @JsonIgnore
-    protected ObservableSet<Label> labels = FXCollections.observableSet(new HashSet<>());
+    protected final ObservableSet<Label> labels = FXCollections.observableSet(new HashSet<>());
 
     /**
      * A feladat nevét tartalmazó property
      */
     @JsonIgnore
-    protected SimpleStringProperty name = new SimpleStringProperty();
+    protected final SimpleStringProperty name = new SimpleStringProperty();
 
     /**
      * A feladat szülője (tábla)
