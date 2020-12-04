@@ -6,16 +6,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
 import proghf.controller.MainController;
 
 import java.io.IOException;
 
 /**
- * JavaFX App
+ * Feladatlista alkalmazás belépési pontja
+ * <p>
+ * Létrehozza az ablakot és beállítja a bezárást megerősítő eseménykezelőt
  */
 public class Main extends Application {
+    public static void main(String[] args) {
+        launch();
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main.fxml"));
@@ -37,10 +42,6 @@ public class Main extends Application {
             }
         });
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 
 }

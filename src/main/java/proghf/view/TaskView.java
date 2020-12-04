@@ -7,9 +7,21 @@ import proghf.model.Task;
 
 import java.io.IOException;
 
+/**
+ * Feladat nézet
+ */
 public class TaskView extends Navigable {
-    private Task task;
 
+    /**
+     * A feladat modellje
+     */
+    private final Task task;
+
+    /**
+     * Új feladat nézet létrehozása
+     *
+     * @param task a feladat modellje
+     */
     public TaskView(Task task) {
         this.task = task;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("task.fxml"));
@@ -22,6 +34,11 @@ public class TaskView extends Navigable {
         }
     }
 
+    /**
+     * A nézethez tartozó feladat lekérése
+     *
+     * @return a feladat modellje
+     */
     public Task getTask() {
         return task;
     }

@@ -9,36 +9,87 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import proghf.TableManager;
+import proghf.ViewManager;
 import proghf.model.Reminder;
 import proghf.model.TaskList;
-import proghf.view.*;
+import proghf.view.ReminderView;
+import proghf.view.TaskListView;
+import proghf.view.TaskView;
+import proghf.view.View;
 
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+/**
+ * A feladat nézet kontrollere
+ */
 public class TaskController {
-    @FXML
-    public TextField titleTextField;
-    @FXML
-    public Button saveButton;
-    @FXML
-    public VBox body;
-    @FXML
-    public TextField labelTextField;
-    @FXML
-    private Button editButton;
-    @FXML
-    private Label taskName;
-    @FXML
-    private VBox labelList;
-    @FXML
-    private Button archiveButton;
+
+    /**
+     * A feladat nézete
+     */
     private TaskView taskView;
-    @FXML
-    private AnchorPane taskBody;
+
+    /**
+     * A feladat specifikus nézet
+     */
     private View taskBodyView;
 
+    /**
+     * A feladat nevét tartalmazó szövegdoboz
+     */
+    @FXML
+    private TextField titleTextField;
+
+    /**
+     * A feladat mentése gomb
+     */
+    @FXML
+    private Button saveButton;
+
+    /**
+     * Új címke felvétele szövegmező
+     */
+    @FXML
+    private TextField labelTextField;
+
+    /**
+     * A feladat nevét szerkesztő gomb
+     */
+    @FXML
+    private Button editButton;
+
+    /**
+     * A feladat nevét tartalmazó szövegelem
+     */
+    @FXML
+    private Label taskName;
+
+    /**
+     * A címkék listáját tartalmazó doboz
+     */
+    @FXML
+    private VBox labelList;
+
+    /**
+     * Az archiváló gomb
+     */
+    @FXML
+    private Button archiveButton;
+
+    /**
+     * A feladat specifikus részt tartalmazó doboz
+     */
+    @FXML
+    private AnchorPane taskBody;
+
+    /**
+     * Feladat nézet kötése
+     * <p>
+     * Megjeleníti a feladat specifikus nézetet, valamint a feladathoz tartozó címkéket
+     *
+     * @param taskView a feladat nézet
+     */
     public void bindView(TaskView taskView) {
         this.taskView = taskView;
         if (taskView.getTask().getParent() == taskView.getTask().getParent().getParent().getArchive()) {
@@ -53,9 +104,9 @@ public class TaskController {
         if (taskView.getTask() instanceof Reminder) {
             var reminder = (Reminder) taskView.getTask();
             taskBodyView = new ReminderView(reminder);
-        }else if(taskView.getTask() instanceof TaskList){
-            var taskList=(TaskList) taskView.getTask();
-            taskBodyView=new TaskListView(taskList);
+        } else if (taskView.getTask() instanceof TaskList) {
+            var taskList = (TaskList) taskView.getTask();
+            taskBodyView = new TaskListView(taskList);
         }
         taskBody.getChildren().add(taskBodyView.getView());
         renderLabelList();
@@ -64,12 +115,17 @@ public class TaskController {
         });
     }
 
+    /**
+     * A feladat címkéit megjelenítő segédfüggvény
+     * <p>
+     * Köti a címkét a modellhez, valamint beállítja a címke eseménykezelőket
+     */
     private void renderLabelList() {
         labelList.getChildren().clear();
         for (var label : taskView.getTask().getLabels().stream().sorted(Comparator.comparing(proghf.model.Label::getName)).collect(Collectors.toList())) {
             var hbox = new HBox();
             var labelField = new TextField(label.getName());
-            labelField.textProperty().bindBidirectional(label.getNameProperty());
+            labelField.textProperty().bindBidirectional(label.nameProperty());
             var deleteButton = new Button("Törlés");
             deleteButton.setOnAction(actionEvent -> {
                 taskView.getTask().getLabels().remove(label);
@@ -85,14 +141,26 @@ public class TaskController {
         }
     }
 
+    /**
+     * A vissza navigáló gomb eseménykezelője
+     *
+     * @param actionEvent esemény paraméter
+     */
     public void onBackPressed(ActionEvent actionEvent) {
         // Remove and re-add the task to refresh the column
         var task = taskView.getTask();
         task.getParent().getTasks().remove(task);
         task.getParent().getTasks().add(task);
-        TableManager.getInstance().navigateBack();
+        ViewManager.getInstance().navigateBack();
     }
 
+    /**
+     * A feladat törlése gomb eseménykezelője
+     * <p>
+     * Megerősítést kér a felhasználótól törlés előtt
+     *
+     * @param actionEvent esemény paraméter
+     */
     public void onDeletePressed(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Törlés megerősítése");
@@ -102,10 +170,17 @@ public class TaskController {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             var task = taskView.getTask();
             task.getParent().deleteTask(task);
-            TableManager.getInstance().navigateBack();
+            ViewManager.getInstance().navigateBack();
         }
     }
 
+    /**
+     * Az archiváló gomb eseménykezelője
+     * <p>
+     * Megerősítést kér a felhasználótól az archiválás előtt
+     *
+     * @param actionEvent esemény paraméter
+     */
     public void onArchivePressed(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Archiválás megerősítése");
@@ -116,9 +191,16 @@ public class TaskController {
             var task = taskView.getTask();
             task.getParent().archiveTask(task);
         }
-        TableManager.getInstance().navigateBack();
+        ViewManager.getInstance().navigateBack();
     }
 
+    /**
+     * A feladat nevét szerkesztő gomb eseménykezelője
+     * <p>
+     * Megjeleníti a szerkesztési mezőt és a mentés gombot
+     *
+     * @param actionEvent esemény paraméter
+     */
     public void onEditPressed(ActionEvent actionEvent) {
         titleTextField.setText(taskView.getTask().getName());
         taskName.setVisible(false);
@@ -133,6 +215,13 @@ public class TaskController {
         saveButton.setPrefWidth(-1);
     }
 
+    /**
+     * A feladat nevét elmentő gomb eseménykezelője
+     * <p>
+     * Üres szövegmező esetén nem történik változtatás
+     *
+     * @param actionEvent esemény paraméter
+     */
     public void onSavePressed(ActionEvent actionEvent) {
         if (titleTextField.getText().length() > 0) {
             taskView.getTask().setName(titleTextField.getText());
@@ -147,8 +236,13 @@ public class TaskController {
         saveButton.setPrefWidth(0.0);
     }
 
+    /**
+     * Az új címke hozzáadása gomb eseménykezelője
+     *
+     * @param actionEvent esemény paraméter
+     */
     public void onNewLabelPressed(ActionEvent actionEvent) {
-        if(labelTextField.getText().length()>0){
+        if (labelTextField.getText().length() > 0) {
             taskView.getTask().getLabels().add(new proghf.model.Label(labelTextField.getText()));
         }
         labelTextField.clear();

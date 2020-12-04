@@ -3,8 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proghf.controller.ReminderController">
-   <children>
-      <TextArea fx:id="textArea" prefColumnCount="25" promptText="Emlékeztető szövege..." wrapText="true" VBox.vgrow="ALWAYS" />
-   </children>
+<VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="proghf.controller.ReminderController">
+   <TextArea fx:id="textArea" prefColumnCount="25" promptText="Emlékeztető szövege..." wrapText="true"
+             VBox.vgrow="ALWAYS"/>
 </VBox>

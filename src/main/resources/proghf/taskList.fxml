@@ -4,23 +4,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="container" alignment="CENTER_LEFT" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proghf.controller.TaskListController">
-   <children>
-      <Button fx:id="newButton" mnemonicParsing="false" onAction="#onNewPressed" text="Új feladat">
-         <VBox.margin>
-            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-         </VBox.margin></Button>
-      <ScrollPane fitToWidth="true" styleClass="edge-to-edge" VBox.vgrow="ALWAYS">
-        <content>
-          <AnchorPane>
-               <children>
-                  <VBox fx:id="taskItemList" spacing="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
-   </children>
-   <padding>
-      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-   </padding>
+<VBox alignment="CENTER_LEFT" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="proghf.controller.TaskListController">
+    <padding>
+        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+    </padding>
+    <Button mnemonicParsing="false" onAction="#onNewPressed" text="Új feladat">
+        <VBox.margin>
+          <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
+        </VBox.margin>
+    </Button>
+    <ScrollPane fitToWidth="true" styleClass="edge-to-edge" VBox.vgrow="ALWAYS">
+        <AnchorPane>
+            <VBox fx:id="taskItemList" spacing="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+        </AnchorPane>
+    </ScrollPane>
 </VBox>

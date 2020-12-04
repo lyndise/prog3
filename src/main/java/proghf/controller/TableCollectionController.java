@@ -5,30 +5,68 @@ import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import proghf.TableManager;
+import proghf.ViewManager;
 import proghf.model.Table;
-import proghf.view.*;
+import proghf.view.SearchView;
+import proghf.view.TableCollectionElementView;
+import proghf.view.TableCollectionView;
 import proghf.view.TableView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A tábla gyűjtemény nézet kontrollere
+ */
 public class TableCollectionController {
+
+    /**
+     * A táblagyűjtemény nézet elemeit tartalmazó lista
+     */
+    private final List<TableCollectionElementView> tableCollectionElementViews = new ArrayList<>();
+
+    /**
+     * A táblagyűjtemény nézet
+     */
+    private TableCollectionView tableCollectionView;
+
+    /**
+     * Az archivált elemek közti keresés jelölője
+     */
     @FXML
-    public CheckBox isArchiveChecked;
+    private CheckBox isArchiveChecked;
+
+    /**
+     * A keresési kifejezés szövegmezője
+     */
     @FXML
-    public TextField searchField;
+    private TextField searchField;
+
+    /**
+     * A keresés folyamatjelzője
+     */
     @FXML
     private ProgressIndicator searchSpinner;
-    private TableCollectionView tableCollectionView;
-    private List<TableCollectionElementView> tableCollectionElementViews = new ArrayList<>();
 
+    /**
+     * A táblagyűjtemény nézet elemeit tartalmazó doboz
+     */
     @FXML
     private VBox tableRows;
 
+    /**
+     * A táblagyűjtemény nézet kötése
+     * <p>
+     * Végigiterál a táblákon, megjeleníti a sorokat és beállítja az eseménykezelőket
+     *
+     * @param tableCollectionView a táblagyűjtemény nézet
+     */
     public void bindView(TableCollectionView tableCollectionView) {
         this.tableCollectionView = tableCollectionView;
         tableCollectionView.getTableCollection().getTables().forEach(table -> {
@@ -56,7 +94,13 @@ public class TableCollectionController {
         });
     }
 
-    @FXML
+    /**
+     * Az új tábla gomb eseménykezelője
+     * <p>
+     * Felugró ablakban kéri be az új tábla nevét a felhasználótól
+     *
+     * @param actionEvent esemény paraméter
+     */
     public void onAddTableButtonPressed(ActionEvent actionEvent) {
         var tableNameDialog = new TextInputDialog("Tábla");
         tableNameDialog.setTitle("Új tábla létrehozása");
@@ -68,11 +112,23 @@ public class TableCollectionController {
         }
     }
 
+    /**
+     * Az archivált feladatok nézetére váltó gomb eseménykezelője
+     *
+     * @param actionEvent esemény paraméter
+     */
     public void onArchivedTasksPressed(ActionEvent actionEvent) {
         var tableView = new TableView(tableCollectionView.getTableCollection().getArchive());
-        TableManager.getInstance().setCurrentView(tableView.getView());
+        ViewManager.getInstance().setCurrentView(tableView.getView());
     }
 
+    /**
+     * A keresést indító gomb eseménykezelője
+     * <p>
+     * Létrehozza, majd megjeleníti a keresési nézetet
+     *
+     * @param actionEvent esemény paraméter
+     */
     public void onSearchPressed(ActionEvent actionEvent) {
         searchSpinner.setPrefWidth(20);
         searchField.setDisable(true);
@@ -84,7 +140,7 @@ public class TableCollectionController {
                 tables.add(tableCollectionView.getTableCollection().getArchive());
             }
             var searchView = new SearchView(searchField.getText(), tables);
-            TableManager.getInstance().setCurrentView(searchView.getView());
+            ViewManager.getInstance().setCurrentView(searchView.getView());
             searchField.clear();
         })).play();
     }

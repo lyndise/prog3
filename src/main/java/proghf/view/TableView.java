@@ -7,15 +7,29 @@ import proghf.model.Table;
 
 import java.io.IOException;
 
+/**
+ * Tábla nézete
+ */
 public class TableView extends Navigable {
-    private Table table;
 
+    /**
+     * A tábla modellje
+     */
+    private final Table table;
 
+    /**
+     * Új táblanézet létrehozása
+     *
+     * @param table a tábla modellje
+     */
     public TableView(Table table) {
         this.table = table;
         loadView();
     }
 
+    /**
+     * A tábla nézetet létrehozó segédfüggvény
+     */
     private void loadView() {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("table.fxml"));
         try {
@@ -27,6 +41,11 @@ public class TableView extends Navigable {
         }
     }
 
+    /**
+     * A tábla modelljének lekérése
+     *
+     * @return a tábla modellje
+     */
     public Table getTable() {
         return table;
     }

@@ -7,21 +7,38 @@ import proghf.model.TableCollection;
 
 import java.io.IOException;
 
+/**
+ * Táblagyűjtemény nézet
+ */
 public class TableCollectionView extends Navigable {
+
+    /**
+     * A nézethez tartozó modell
+     */
     private TableCollection tableCollection;
 
-    public TableCollectionView() {
-        setTableCollection(new TableCollection());
-    }
-
+    /**
+     * Új táblagyűjtemény nézet létrehozása
+     * @param tableCollection a táblagyűjtemény
+     */
     public TableCollectionView(TableCollection tableCollection) {
         setTableCollection(tableCollection);
     }
 
+    /**
+     * A nézethez tartozó modell lekérése
+     * @return a nézethez tartozó táblagyűjtemény
+     */
     public TableCollection getTableCollection() {
         return tableCollection;
     }
 
+    /**
+     * A táblagyűjtemény beállítása
+     *
+     * Létrehozza a táblagyűjtemény nézetet és hozzáköti a kontrollert
+     * @param tableCollection a táblagyűjtemény modellje
+     */
     public void setTableCollection(TableCollection tableCollection) {
         this.tableCollection = tableCollection;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("tableCollection.fxml"));
@@ -34,6 +51,10 @@ public class TableCollectionView extends Navigable {
         }
     }
 
+    /**
+     * Új tábla létrehozása a gyűjteményben
+     * @param name az új tábla neve
+     */
     public void createTable(String name) {
         tableCollection.newTable(name);
     }

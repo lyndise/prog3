@@ -1,15 +1,20 @@
 package proghf.view;
 
-import javafx.fxml.FXML;
-import proghf.TableManager;
+import proghf.ViewManager;
 
+/**
+ * Navigálható nézet osztály
+ * <p>
+ * Segítségével a vissza gomb kezelése egységesen történik
+ */
 public abstract class Navigable extends View {
-    public void activate() {
-        TableManager.getInstance().setCurrentView(view);
-    }
 
-    @FXML
-    private void onBackPressed() {
-        TableManager.getInstance().navigateBack();
+    /**
+     * A navigálható nézet aktiválása
+     * <p>
+     * Értesíti a tábla kezelőt, hogy aktiválja a nézetet
+     */
+    public void activate() {
+        ViewManager.getInstance().setCurrentView(view);
     }
 }

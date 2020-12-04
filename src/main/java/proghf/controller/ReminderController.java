@@ -1,22 +1,26 @@
 package proghf.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import proghf.view.ReminderView;
 
+/**
+ * Az emlékeztető nézetéhez tartozó kontroller
+ */
 public class ReminderController {
-    @FXML
-    public Button editButton;
-    @FXML
-    public Button saveButton;
-    @FXML
-    public TextArea textArea;
-    private ReminderView reminderView;
 
+    /**
+     * Az emlékeztető szövegét tartalmazó szövegdoboz
+     */
+    @FXML
+    private TextArea textArea;
+
+    /**
+     * Az emlékeztetőhöz tartozó nézet kötése
+     *
+     * @param reminderView az emlékeztetőhöz tartozó nézet
+     */
     public void bindView(ReminderView reminderView) {
-        this.reminderView = reminderView;
         textArea.textProperty().bindBidirectional(reminderView.getReminder().textProperty());
     }
 }

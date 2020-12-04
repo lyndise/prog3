@@ -1,0 +1,43 @@
+{
+  "tables": [
+    {
+      "name": "Tábla",
+      "columns": [
+        "címke1",
+        "címke2"
+      ],
+      "tasks": [
+        {
+          "type": "taskList",
+          "name": "Feladat",
+          "taskItems": [
+            {
+              "checked": false,
+              "text": "kutya"
+            },
+            {
+              "checked": true,
+              "text": "macska"
+            }
+          ],
+          "labels": [
+            "címke1"
+          ]
+        },
+        {
+          "type": "reminder",
+          "name": "Emlékeztető",
+          "text": "Lorem ipsum dolor sit amet",
+          "labels": [
+            "címke2"
+          ]
+        }
+      ]
+    }
+  ],
+  "archive": {
+    "name": "Archivált elemek",
+    "columns": [],
+    "tasks": []
+  }
+}

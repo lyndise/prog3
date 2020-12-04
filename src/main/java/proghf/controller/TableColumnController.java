@@ -6,8 +6,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import proghf.model.Reminder;
@@ -19,22 +17,52 @@ import proghf.view.TaskView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A tábla egy oszlopához tartozó kontroller
+ */
 public class TableColumnController {
-    @FXML
-    public Button deleteButton;
-    @FXML
-    public Button newButton;
-    private TableColumnView tableColumnView;
-    @FXML
-    public Label columnName;
-    @FXML
-    public VBox taskItems;
 
+    /**
+     * A táblaoszlop nézete
+     */
+    private TableColumnView tableColumnView;
+
+    /**
+     * Az oszlop törlése gomb
+     */
+    @FXML
+    private Button deleteButton;
+
+    /**
+     * Az új feladat gomb
+     */
+    @FXML
+    private Button newButton;
+
+    /**
+     * Az oszlop nevét tartalmazó szövegelem
+     */
+    @FXML
+    private Label columnName;
+
+    /**
+     * A feladatokat tartalmazó doboz
+     */
+    @FXML
+    private VBox taskItems;
+
+    /**
+     * A táblaoszlop nézet kötése
+     * <p>
+     * Beállítja az oszlop nevét, valamint kirajzolja az oszlophoz tartozó feladatokat
+     *
+     * @param tableColumnView a táblaoszlop nézet
+     */
     public void bindView(TableColumnView tableColumnView) {
         this.tableColumnView = tableColumnView;
         if (tableColumnView.getLabel() != null) {
             this.columnName.setText(tableColumnView.getLabel().getName());
-            tableColumnView.getLabel().getNameProperty().addListener((prop, oldName, newName) -> {
+            tableColumnView.getLabel().nameProperty().addListener((prop, oldName, newName) -> {
                 this.columnName.setText(newName);
             });
         } else {
@@ -61,6 +89,9 @@ public class TableColumnController {
         }
     }
 
+    /**
+     * A feladatok kirajzolásához használt segédfüggvény
+     */
     public void renderTasks() {
         taskItems.getChildren().clear();
         tableColumnView.getTable().getTasks().forEach(task -> {
@@ -71,6 +102,15 @@ public class TableColumnController {
         });
     }
 
+    /**
+     * Oszlopon belüli feladat nézet létrehozása
+     * <p>
+     * Megjeleníti a feladat nevét, valamint a feladathoz tartozó címkéket, és egy
+     * gombot amivel a feladat megnyithatóvá válik
+     *
+     * @param task a nézethez tartozó feladat
+     * @return a létrehozott nézet
+     */
     private Node createTaskView(Task task) {
         var vbox = new VBox();
         var taskName = new Label(task.getName());
@@ -94,7 +134,13 @@ public class TableColumnController {
         return vbox;
     }
 
-    @FXML
+    /**
+     * Az új feladat gomb eseménykezelője
+     * <p>
+     * Felugró ablakban kérdezi meg a feladat típusát, valamint a feladat nevét
+     *
+     * @param actionEvent esemény paraméter
+     */
     public void onNewTaskPressed(ActionEvent actionEvent) {
         List<String> choices = new ArrayList<>();
         choices.add("Emlékeztető");
@@ -129,7 +175,11 @@ public class TableColumnController {
         }
     }
 
-    @FXML
+    /**
+     * Az oszlop törlése gomb eseménykezelője
+     *
+     * @param actionEvent esemény paraméter
+     */
     public void onDeletePressed(ActionEvent actionEvent) {
         tableColumnView.delete();
     }

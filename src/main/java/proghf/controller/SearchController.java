@@ -6,19 +6,34 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import proghf.TableManager;
+import proghf.ViewManager;
 import proghf.view.SearchView;
 import proghf.view.TaskView;
 
+/**
+ * A keresési nézet kontrollere
+ */
 public class SearchController {
-    @FXML
-    public VBox resultList;
-    private SearchView searchView;
 
+    /**
+     * A találatok listáját tartalmazó doboz
+     */
+    @FXML
+    private VBox resultList;
+
+    /**
+     * A keresési nézet kötése
+     * <p>
+     * Végigiterál a találatokon, és létrehozza a képernyőn megjelenő elemeket
+     *
+     * @param searchView a keresési nézet
+     */
     public void bindView(SearchView searchView) {
-        this.searchView = searchView;
         searchView.getResult().forEach(task -> {
             var hbox = new HBox();
             var title = new Label(task.getName());
@@ -29,7 +44,7 @@ public class SearchController {
             var openButton = new Button("Megnyitás");
             openButton.setOnAction(actionEvent -> {
                 var taskView = new TaskView(task);
-                TableManager.getInstance().setCurrentView(taskView.getView());
+                ViewManager.getInstance().setCurrentView(taskView.getView());
             });
             hbox.getChildren().addAll(title, pane, tableName, openButton);
             hbox.setSpacing(8.0);
@@ -41,7 +56,12 @@ public class SearchController {
         });
     }
 
+    /**
+     * A vissza navigáló gomb eseménykezelője
+     *
+     * @param actionEvent esemény paraméter
+     */
     public void onBackPressed(ActionEvent actionEvent) {
-        TableManager.getInstance().navigateBack();
+        ViewManager.getInstance().navigateBack();
     }
 }

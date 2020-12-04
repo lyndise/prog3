@@ -4,22 +4,39 @@ import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import proghf.model.TaskItem;
 import proghf.view.TaskListView;
 
+/**
+ * A feladatlista nézethez tartozó kontroller
+ */
 public class TaskListController {
-    @FXML
-    public VBox container;
-    @FXML
-    public Button newButton;
+
+    /**
+     * A feladatlista nézet
+     */
     private TaskListView taskListView;
+
+    /**
+     * A feladatlista nézet elemeit tartalmazó doboz
+     */
     @FXML
     private VBox taskItemList;
 
+    /**
+     * A feladatlista nézet kötése
+     * <p>
+     * Megjeleníti a feladatlista elemeit
+     *
+     * @param taskListView a feladatlista nézete
+     */
     public void bindView(TaskListView taskListView) {
         this.taskListView = taskListView;
         renderTaskItemList();
@@ -28,13 +45,25 @@ public class TaskListController {
         });
     }
 
+    /**
+     * A feladatlista elem megjelenítő segédfüggvény
+     * <p>
+     * Létrehozza az elemeket és beállítja az elemekhez tartozó eseménykezelőket
+     */
     private void renderTaskItemList() {
         taskItemList.getChildren().clear();
         for (var taskItem : taskListView.getTaskList().getTaskItems()) {
             var hbox = new HBox();
+            var taskItemField = new TextField(taskItem.getText());
             var checkBox = new CheckBox();
             checkBox.selectedProperty().bindBidirectional(taskItem.checkedProperty());
-            var taskItemField = new TextField(taskItem.getText());
+            checkBox.selectedProperty().addListener((prop, oldValue, newValue) -> {
+                if (newValue) {
+                    taskItemField.setStyle("-fx-text-fill: gray;");
+                } else {
+                    taskItemField.setStyle("-fx-text-fill: black;");
+                }
+            });
             taskItemField.textProperty().bindBidirectional(taskItem.textProperty());
             var deleteButton = new Button("Törlés");
             deleteButton.setOnAction(actionEvent -> {
@@ -50,6 +79,11 @@ public class TaskListController {
         }
     }
 
+    /**
+     * Új feladatlista elem felvétele gomb eseménykezelője
+     *
+     * @param actionEvent esemény paraméter
+     */
     public void onNewPressed(ActionEvent actionEvent) {
         taskListView.getTaskList().getTaskItems().add(new TaskItem());
     }
